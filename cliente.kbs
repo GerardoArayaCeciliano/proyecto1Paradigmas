@@ -35,12 +35,11 @@ end
   end
   mostrarEmpelado:
   cls
-  for i=0 to empTama-1
-  print " Cliente ID:"+empleados$[i,0]
-  print "Nombre Completo: "+empleados$[i,1]
-  print "Correo: "+empleados$[i,2]
-  print "Telefono:"+empleados$[i,3]
-  next i
+  aux=empTama-1
+  print " Cliente ID:"+empleados$[aux,0]
+  print "Nombre Completo: "+empleados$[aux,1]
+  print "Correo: "+empleados$[aux,2]
+  print "Telefono:"+empleados$[aux,3]
   input "Presione s para continuar: ",cont$
   if cont$='s' then goto menu
   end
