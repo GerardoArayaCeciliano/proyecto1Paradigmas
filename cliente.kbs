@@ -1,0 +1,46 @@
+opt =3
+empTama=1
+bandera=false
+dim empleados$(1,4)
+ menu:
+ cls
+ print"Menu"
+ print "1 Ingresar empleado"
+ input "0pción: ",opt
+ if opt=1 then goto registrarEmpelado
+end 
+
+ registrarEmpelado:
+  cls
+  if bandera=false then
+    bandera=true
+  print "Registrar Cliente"
+  input "ID:",empleados$[0,0]
+  input "Nombre Completo:",empleados$[0,1]
+  input "Correo:",empleados$[0,2]
+  input "Telefono:",empleados$[0,3]
+  input "Presione 1 para ver el usuario    registrado ",cont
+  if cont=1 then goto mostrarEmpelado
+  else
+   empTama=empTama+1
+   redim empleados$(empTama,4)
+   print "Registrar Cliente"
+   input "ID:",empleados$[empTama-1,0]
+   input "Nombre Completo:",empleados$[empTama-1,1]
+   input "Correo:",empleados$[empTama-1,2]
+   input "Telefono:",empleados$[empTama-1,3]
+   input "Presione 1 para ver el usuario registrado ",cont
+   if cont=1 then goto mostrarEmpelado
+  end if
+  end
+  mostrarEmpelado:
+  cls
+  for i=0 to empTama-1
+  print " Cliente ID:"+empleados$[i,0]
+  print "Nombre Completo: "+empleados$[i,1]
+  print "Correo: "+empleados$[i,2]
+  print "Telefono:"+empleados$[i,3]
+  next i
+  input "Presione s para continuar: ",cont$
+  if cont$='s' then goto menu
+  end
