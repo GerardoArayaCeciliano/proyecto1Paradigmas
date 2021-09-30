@@ -1,39 +1,39 @@
 opc=0
-filasEmpleados=1
 bandera=false
 dim empleados$(1,4)
 while opc <> 6
 cls
 print "Menu"
 print "1) Ingresar empleado"
-print "2)Mostrar empleados"
+print "2) Bucar Empleado"
 input "Opcion ",opc
 
-if opc=1 then call ingresarEmpleado(ref(empleados$),ref(bandera),ref(filasEmpleados))
-if opc=2 then call mostrarEmpelado(ref(empleados$),ref(filasEmpleados))
+if opc=1 then call ingresarEmpleado(ref(empleados$),ref(bandera))
+if opc=2 then call buscarEmpelado(ref(empleados$))
 end while
 
-subroutine ingresarEmpleado(empleados$,bandera,filasEmpleados)
+subroutine ingresarEmpleado(empleados$,bandera)
 cls
- cls
+   filasEmpleados=int((length(empleados$[]))/4)
+   print filasEmpleados
   if bandera=false then
-   bandera=true
-  print "Registrar Empleado"
-  input "ID:",empleados$[0,0]
-  input "Nombre Completo:",empleados$[0,1]
-  input "Correo:",empleados$[0,2]
-  input "Telefono:",empleados$[0,3]
+	     bandera=true
+	     print "Registrar Empleado"
+	     input "ID:",empleados$[0,0]
+	     input "Nombre Completo:",empleados$[0,1]
+	     input "Correo:",empleados$[0,2]
+	     input "Telefono:",empleados$[0,3]
   else
-   filasEmpleados=filasEmpleados+1
-   redim empleados$(filasEmpleados,4)
-   print "Registrar Empleado"
-   input "ID:",empleados$[filasEmpleados-1,0]
-   input "Nombre Completo:",empleados$[filasEmpleados-1,1]
-   input "Correo:",empleados$[filasEmpleados-1,2]
-   input "Telefono:",empleados$[filasEmpleados-1,3]
+	      filasEmpleados=filasEmpleados+1
+	      redim empleados$(filasEmpleados,4)
+	      print "Registrar Empleado"
+	      input "ID:",empleados$[filasEmpleados-1,0]
+	      input "Nombre Completo:",empleados$[filasEmpleados-1,1]
+	      input "Correo:",empleados$[filasEmpleados-1,2]
+	      input "Telefono:",empleados$[filasEmpleados-1,3]
    end if
    input "Si desea ver el empleado registrado precione (s)",opc$
-    if opc$="s" then call mostrarEmpelado(ref(empleados$),ref(filasEmpleados))
+   if opc$="s" then call mostrarEmpelado(ref(empleados$),ref(filasEmpleados))
 end subroutine 
 
 subroutine mostrarEmpelado(empleados$,filasEmpleados)
@@ -44,4 +44,35 @@ subroutine mostrarEmpelado(empleados$,filasEmpleados)
   print "Correo: "+empleados$[aux,2]
   print "Telefono:"+empleados$[aux,3]
   input "Presione una tecla para continuar: ",cont$
+  end subroutine  
+  
+  subroutine buscarEmpelado(empleados$)
+  cls
+  filasEmpleados=int((length(empleados$[]))/4)
+  print filasEmpleados
+  print "1) Ver todos los empleados"
+  print "2) Buscar por id"
+  input "Opcion",opc
+    cls
+  if opc=1 then
+  		i=0
+	    for  i=0 to i<filasEmpleados-1
+		    print " Cliente ID:"+empleados$[i,0]
+		    print "Nombre Completo: "+empleados$[i,1]
+		    print "Correo: "+empleados$[i,2]
+		    print "Telefono:"+empleados$[i,3]
+   		 next i
+    else     
+          input "Ingrese el id del usuario",id$
+          i=0
+    	 for  i=0 to i<filasEmpleados-1
+    	 	if empleados$[i,0]=id$ then
+	    	 	print " Cliente ID:"+empleados$[i,0]
+			    print "Nombre Completo: "+empleados$[i,1]
+			    print "Correo: "+empleados$[i,2]
+			    print "Telefono:"+empleados$[i,3]
+    	 	end if
+    	 next i 
+    end if    
+    input "Opcion",opc
   end subroutine
