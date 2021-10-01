@@ -1,0 +1,92 @@
+dim jornSemanal(1, 3)
+call ingresarJornadas(ref(jornSemanal))
+call limpiarYPintarTabla(ref(jornSemanal))
+
+
+subroutine ingresarJornadas(list)
+	cls
+	print "********************************************"
+	flag = true
+	while flag
+		input "Si desea salir precione la letra X y luego la tecla Enter, de lo contrario preciones letra distinta de X: ", a
+		if  upper(a) = "X" then
+			cls
+			flag = false
+		else 
+			cls
+			print "***************************************** "
+			print "Ha seleccionado ingresar una jornada "
+			print "***************************************** "
+			
+			input "Ingrese el dia al que desea ingresar una nueva jornada: ", dia
+			if dia_valido(dia) then 
+			
+				if diaDisponible(ref(list), dia) then
+					input "Ingrese el numero de horas que son laborales este dia: ", horas
+					if horas < 24 and int(horas) <> 0 then
+						call agregarEntradaJornadas(ref(list), dia, horas)
+					else
+						cls
+						print "***************************************** "
+						print 'EL VALOR QUE HAS INGRESADO A LAS HORAS ERA DEMACIADO GRANDE O NO ERA UN NUMERO'
+						print "***************************************** "
+					endif
+				else
+					cls
+					print "***************************************** "
+					print "Ya este dia esta ocupado, los dias que has ocupadon son: "
+					call imprimirJornadasEnLista(ref(list))
+				endif
+			else
+				cls
+				print "***************************************** "
+				print '"' + upper(dia)+ '"' + '  NO ES UN DIA VALIDO'
+				print "***************************************** "
+			end if
+		end if
+		print "********************************************"
+	end while
+end subroutine
+
+
+subroutine agregarEntradaJornadas(list, dia, horas)
+		cont = int(length(list)/3)
+		dim editableAux(cont, 3)
+		editableAux = list
+		editableAux[cont - 1][0] = cont
+		editableAux[cont - 1][1] = dia
+		editableAux[cont - 1][2] = float(horas)
+		redim editableAux(cont + 1, 3)
+		list = editableAux
+end subroutine
+
+
+function dia_valido(dia)
+   return lower(dia) = 'lunes' or lower(dia) = 'martes' or lower(dia) = 'miercoles' or lower(dia) = 'jueves' or lower(dia) = 'viernes' or lower(dia) = 'sabado' or lower(dia) = 'domingo'
+end function
+
+
+function diaDisponible(list, dia)
+	for i=0 to int(length(list)/3) - 2
+		if lower(list [i][1]) = lower(dia) then
+			return false
+		endif
+	next i
+	return true
+end function
+
+
+subroutine imprimirJornadasEnLista(list)
+	for i=0 to int(length(list)/3) - 2
+		print list [i][1]
+	next i
+end subroutine
+
+subroutine limpiarYPintarTabla(list)
+	cls
+	print "****************Tabla de jornadas****************************"
+	print "id-----dia-----horas--------------------------"
+	for i=0 to int(length(list)/3) - 2
+		print list [i][0] + "     " + list [i][1] + "     " + list[i][2]
+	next i
+end subroutine
