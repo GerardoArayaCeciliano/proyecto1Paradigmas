@@ -37,155 +37,119 @@ end subroutine
 
 
 subroutine crear_puesto_trabajo( puesto_trabajo$,registrar_empleado$,jornSemanal)
-
-cls
-  print "Crear puesto de trabajo"
-  print""
-  cantidad_filas=int((length(puesto_trabajo$[]))/4)
-  redim puesto_trabajo$(cantidad_filas+1,4)
-  
+	cls
+  	print "Crear puesto de trabajo"
+  	print""
+  	cantidad_filas=int((length(puesto_trabajo$[]))/4)
+  	redim puesto_trabajo$(cantidad_filas+1,4)
 	puesto_trabajo$[cantidad_filas-1,0] = cantidad_filas
-  input "Nombre del puesto:",puesto_trabajo$[cantidad_filas-1,1]
-  input "Descripcion:",puesto_trabajo$[cantidad_filas-1,2]
-  input "Costo Horas:",puesto_trabajo$[cantidad_filas-1,3]
-  
-  input" Digite 's' para asignar el puesto de trabajo a un empleado:  ", s$
-  
-IF s$ = "s" THEN call asignar_puesto( puesto_trabajo$[cantidad_filas-1,0], puesto_trabajo$, registrar_empleado$,jornSemanal)
-
-  
-cls
-
-  
-call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
-
+	input "Nombre del puesto:",puesto_trabajo$[cantidad_filas-1,1]
+  	input "Descripcion:",puesto_trabajo$[cantidad_filas-1,2]
+  	input "Costo Horas:",puesto_trabajo$[cantidad_filas-1,3]
+  	input" Digite 's' para asignar el puesto de trabajo a un empleado:  ", s$
+  	IF s$ = "s" THEN call asignar_puesto( puesto_trabajo$[cantidad_filas-1,0], puesto_trabajo$, registrar_empleado$,jornSemanal)
+	cls
+	call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
 end subroutine
 
 
-
 subroutine mostrar_puesto_trabajo(puesto_trabajo$,registrar_empleado$,jornSemanal)
-cls
-cantidad_filas=int((length(puesto_trabajo$[]))/4)
-for y = 0 to cantidad_filas-2
- print " Puesto ID:"+puesto_trabajo$[y,0]
-  print "Nombre del puesto: "+puesto_trabajo$[y,1]
-  print "Descripcion: "+puesto_trabajo$[y,2]
-  print "Costo Horas:"+puesto_trabajo$[y,3]
-  print " "
-next y
-
-input "Para volver al menu digite 7 : ",opt$
-
-IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
-
+	cls
+	cantidad_filas=int((length(puesto_trabajo$[]))/4)
+	for y = 0 to cantidad_filas-2
+ 		print " Puesto ID:"+puesto_trabajo$[y,0]
+  		print "Nombre del puesto: "+puesto_trabajo$[y,1]
+  		print "Descripcion: "+puesto_trabajo$[y,2]
+  		print "Costo Horas:"+puesto_trabajo$[y,3]
+  		print " "
+	next y
+	input "Para volver al menu digite 7 : ",opt$
+	IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
 
 end subroutine
 
 
 subroutine registrar_empleado(puesto_trabajo$,registrar_empleado$,jornSemanal)
-
-
-  print "Registrar un empleado"
-  print""
-  cantidad_filas=int((length(registrar_empleado$[]))/5)
-  redim registrar_empleado$(cantidad_filas+1,5)
-  cls
-
-
-
-  registrar_empleado$[cantidad_filas-1,0] = cantidad_filas
-  input "Nombre completo:",registrar_empleado$[cantidad_filas-1,1]
-  input "Correo:",registrar_empleado$[cantidad_filas-1,2]
-  input "Teléfono:",registrar_empleado$[cantidad_filas-1,3]
-  registrar_empleado$[cantidad_filas-1,4] = "no tiene"
-
-
-  
-call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
-
+ 	 print "Registrar un empleado"
+	 print""
+ 	 cantidad_filas=int((length(registrar_empleado$[]))/5)
+ 	 redim registrar_empleado$(cantidad_filas+1,5)
+	 cls
+	 
+  	 registrar_empleado$[cantidad_filas-1,0] = cantidad_filas
+     input "Nombre completo:",registrar_empleado$[cantidad_filas-1,1]
+  	 input "Correo:",registrar_empleado$[cantidad_filas-1,2]
+     input "Teléfono:",registrar_empleado$[cantidad_filas-1,3]
+     registrar_empleado$[cantidad_filas-1,4] = "no tiene"
+	 call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
 end subroutine
-
 
 
 subroutine mostrar_empleados(puesto_trabajo$,registrar_empleado$,jornSemanal)
-cls
-cantidad_filas= int((length(registrar_empleado$[]))/5)
-for y = 0 to cantidad_filas-2
- print " Puesto ID:"+registrar_empleado$[y,0]
-  print "Nombre completo: "+registrar_empleado$[y,1]
-  print "Correo: "+registrar_empleado$[y,2]
-  print "Teléfono:"+registrar_empleado$[y,3]
-  print "ID_Puesto_trabajo:"+registrar_empleado$[y,4]
-  print " "
-next y
-
-input "Para volver al menu digite 7 : ",opt$
-IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
-
-
+	cls
+	cantidad_filas= int((length(registrar_empleado$[]))/5)
+	for y = 0 to cantidad_filas-2
+ 		print " Puesto ID:"+registrar_empleado$[y,0]
+ 		print "Nombre completo: "+registrar_empleado$[y,1]
+  		print "Correo: "+registrar_empleado$[y,2]
+  		print "Teléfono:"+registrar_empleado$[y,3]
+  		print "ID_Puesto_trabajo:"+registrar_empleado$[y,4]
+  		print " "
+	next y
+	input "Para volver al menu digite 7 : ",opt$
+	IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
 end subroutine
+
 
 subroutine asignarPuestoMenu(puesto_trabajo$,registrar_empleado$,jornSemanal) 
 	cls
 	input "Digite el ID del puesto de trabajo", id_puesto$
-
-	
-		if validarPuestoExiste(puesto_trabajo$, id_puesto$) then
-			call asignar_puesto(id_puesto$,puesto_trabajo$,registrar_empleado$,jornSemanal)
-
-		else 
-			cls
-			input "EL PUESTO DE TRABAJO NO EXISTE (Presione cualquier tecla + ENTER para volver al menú)", i
-			
-			call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	if validarPuestoExiste(puesto_trabajo$, id_puesto$) then
+		call asignar_puesto(id_puesto$,puesto_trabajo$,registrar_empleado$,jornSemanal)
+	else 
+		cls
+		input "EL PUESTO DE TRABAJO NO EXISTE (Presione cualquier tecla + ENTER para volver al menú)", i
+		call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
 	endif
-	
-
 end subroutine
+
 
 subroutine asignar_puesto( id_puesto$,puesto_trabajo$,registrar_empleado$,jornSemanal)
-			cls
-			input "Digite el ID del empleado que desea asignarle el puesto: ", id_empleado$
-			
-			if validarEmpleadoExiste(registrar_empleado$,id_empleado$) then 
-			
-					filasEmpleados=int((length(registrar_empleado$[]))/5)
 
-						    for  i = 0 to filasEmpleados-2
-							  if registrar_empleado$[i,0] = id_empleado$ then registrar_empleado$[i,4] = id_puesto$	   
-					   		 next i
-			   		 call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
-			   		else 
-			   		cls
-			   		input "EL USUARIO NO EXISTE (Presione cualquier tecla + ENTER para volver al menú)", i
-			   	
-			   		call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
-			   		
-			endif
-			
-			
-	
+	cls
+	input "Digite el ID del empleado que desea asignarle el puesto: ", id_empleado$	
+	if validarEmpleadoExiste(registrar_empleado$,id_empleado$) then 		
+		filasEmpleados=int((length(registrar_empleado$[]))/5)
+		for  i = 0 to filasEmpleados-2
+			if registrar_empleado$[i,0] = id_empleado$ then registrar_empleado$[i,4] = id_puesto$	   
+		next i
+		call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	else 
+	cls
+	input "EL USUARIO NO EXISTE (Presione cualquier tecla + ENTER para volver al menú)", i
+	call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)		   		
+	endif
+		
 end subroutine
 
+
 function validarEmpleadoExiste(registrar_empleado$, id_empleado$)
-filasEmpleados=int((length(registrar_empleado$[]))/5)
-  for  i = 0 to filasEmpleados-2
+	filasEmpleados=int((length(registrar_empleado$[]))/5)
+ 	 for  i = 0 to filasEmpleados-2
 		  if registrar_empleado$[i,0] = id_empleado$ then return true
-   		 next i
-return false
+   	 next i
+	 return false
 end function
 
 function validarPuestoExiste(puesto_trabajo$, id_puesto$)
-filasPuesto=int((length(puesto_trabajo$[]))/4)
-  for  i = 0 to filasPuesto-2
+
+	filasPuesto=int((length(puesto_trabajo$[]))/4)
+	for  i = 0 to filasPuesto-2
 		  if puesto_trabajo$[i,0] = id_puesto$ then return true
-   		 next i
+    next i
 return false
+
 end function
-
-
-
-
 
 
 subroutine ingresarJornadas(puesto_trabajo$,registrar_empleado$,list)
@@ -268,6 +232,7 @@ subroutine imprimirJornadasEnLista(list)
 	next i
 end subroutine
 
+
 subroutine limpiarYPintarTabla(list,puesto_trabajo$,registrar_empleado$)
 	cls
 	print "****************Tabla de jornadas****************************"
@@ -281,39 +246,38 @@ subroutine limpiarYPintarTabla(list,puesto_trabajo$,registrar_empleado$)
 end subroutine
 
 
-
 subroutine salarioSemanal(puesto_trabajo$,registrar_empleado$,jornSemanal)
-cls
-total_horas = 0
-
-for i=0 to int(length(jornSemanal)/3) - 2
-total_horas = total_horas + int(jornSemanal[i][2])	
-	next i
-	
-print "Total de horas laboradas: " + total_horas
-
-for j=0 to int(length(registrar_empleado$)/5) - 2
-
-if registrar_empleado$[j,4] <> "no tiene" then print "Nombre: "+registrar_empleado$[j,1] 
-
-if registrar_empleado$[j,4] <> "no tiene" then call salarioPorEmpleado(puesto_trabajo$,registrar_empleado$[j,4],total_horas)
-	next j
-
-
-
-
-input "Para volver al menu digite 7 : ",opt$
-	IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	cls
+	total_horas = horasLaborales(jornSemanal)
+	if total_horas>0 then
+		print "Total de horas laboradas: " + total_horas
+		for j=0 to int(length(registrar_empleado$)/5) - 2
+			if registrar_empleado$[j,4] <> "no tiene" then print "Nombre: "+registrar_empleado$[j,1] 
+			if registrar_empleado$[j,4] <> "no tiene" then call salarioPorEmpleado(puesto_trabajo$,registrar_empleado$[j,4],total_horas)
+		next j
+	else
+	  print "Se deben de registrar las jornadas "
+	end if
+	input "Para volver al menu digite 7 : ",opt$
+	if int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
 end subroutine
 
-subroutine salarioPorEmpleado(puesto_trabajo$,id_puesto$,total_horas)
 
-for k=0 to int(length(puesto_trabajo$)/4) - 2
+subroutine salarioPorEmpleado(puesto_trabajo$,id_puesto$,total_horas)
+	for k=0 to int(length(puesto_trabajo$)/4) - 2
 		salario = int(puesto_trabajo$[k,3])*total_horas
-		if puesto_trabajo$[k,0] = id_puesto$ then print "Salario: "+ salario
-	
-		next k
+		if puesto_trabajo$[k,0] = id_puesto$ then print "Salario: "+ salario	
+	next k
 		
 end subroutine
 
+
+
+function horasLaborales(jornSemanal)
+	total_horas = 0
+	for i=0 to int(length(jornSemanal)/3) - 2
+		total_horas = total_horas + int(jornSemanal[i][2])	
+	next i
+	return total_horas
+end function 
 
