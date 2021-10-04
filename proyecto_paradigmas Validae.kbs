@@ -7,32 +7,37 @@ call menu(puesto_trabajo1$,registrar_empleado1$,jornSemanal)
 
 subroutine menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
 
-cls
-print "---------------------->MENU<----------------------"
-print ""
-print"1) Crear puesto trabajo"
-print"2) Mostrar puesto trabajo"
-print"3) Registrar empleado"
-print "4) Mostrar empleados"
-print"5) Ingresar jornada semanal"
-print"6) Mostrar jornada semanal"
-print"7) Calcular y mostrar salario semanal"
-print "8) Asignar puesto de trabajo"
-print ""
+	cls
+	print "---------------------->MENU<----------------------"
+	print ""
+	print"1) Crear puesto trabajo"
+	print"2) Mostrar puesto trabajo"
+	print"3) Registrar empleado"
+	print "4) Mostrar empleados"
+	print"5) Ingresar jornada semanal"
+	print"6) Mostrar jornada semanal"
+	print"7) Calcular y mostrar salario semanal"
+	print "8) Asignar puesto de trabajo"
+	print "9) Salir"
+	print ""
 
 
-input "Opcion : ",opt$
-
-IF int(opt$) = 1 THEN call  crear_puesto_trabajo(puesto_trabajo$,registrar_empleado$,jornSemanal)
-IF int(opt$) = 2 THEN call  mostrar_puesto_trabajo(puesto_trabajo$,registrar_empleado$,jornSemanal)
-IF int(opt$) = 3 THEN call  registrar_empleado(puesto_trabajo$,registrar_empleado$,jornSemanal)
-IF int(opt$) = 4 THEN call  mostrar_empleados(puesto_trabajo$,registrar_empleado$,jornSemanal)
-IF int(opt$) = 5 THEN call  ingresarJornadas(puesto_trabajo$,registrar_empleado$,jornSemanal)
-IF int(opt$) = 6 THEN call limpiarYPintarTabla(ref(jornSemanal),puesto_trabajo$,registrar_empleado$)
-IF int(opt$) = 7 THEN call salarioSemanal(puesto_trabajo$,registrar_empleado$,ref(jornSemanal))
-IF int(opt$) = 8 THEN call asignarPuestoMenu(puesto_trabajo$,registrar_empleado$,ref(jornSemanal))
-
-
+	input "Opcion : ",opt$
+	
+	IF int(opt$) = 1 THEN call  crear_puesto_trabajo(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	IF int(opt$) = 2 THEN call  mostrar_puesto_trabajo(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	IF int(opt$) = 3 THEN call  registrar_empleado(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	IF int(opt$) = 4 THEN call  mostrar_empleados(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	IF int(opt$) = 5 THEN call  ingresarJornadas(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	IF int(opt$) = 6 THEN call mostrarTablaJornada(ref(jornSemanal),puesto_trabajo$,registrar_empleado$)
+	IF int(opt$) = 7 THEN call salarioSemanal(puesto_trabajo$,registrar_empleado$,ref(jornSemanal))
+	IF int(opt$) = 8 THEN call asignarPuestoMenu(puesto_trabajo$,registrar_empleado$,ref(jornSemanal))
+	IF int(opt$) = 9 THEN 
+		cls
+		print"FIN DEL PROGRAMA"
+	ENDIF
+	IF int(opt$) = 0 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
+		
 end subroutine
 
 
@@ -63,9 +68,10 @@ subroutine mostrar_puesto_trabajo(puesto_trabajo$,registrar_empleado$,jornSemana
   		print "Costo Horas:"+puesto_trabajo$[y,3]
   		print " "
 	next y
-	input "Para volver al menu digite 7 : ",opt$
-	IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
-
+	do
+		input "Para volver al menu digite 7 : ",opt$
+		IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	until opt$ = 7
 end subroutine
 
 
@@ -95,8 +101,10 @@ subroutine mostrar_empleados(puesto_trabajo$,registrar_empleado$,jornSemanal)
   		print "ID_Puesto_trabajo:"+registrar_empleado$[y,4]
   		print " "
 	next y
-	input "Para volver al menu digite 7 : ",opt$
-	IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	do
+		input "Para volver al menu digite 7 : ",opt$
+		IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	until opt$ = 7
 end subroutine
 
 
@@ -175,7 +183,7 @@ subroutine ingresarJornadas(puesto_trabajo$,registrar_empleado$,list)
 					if horas < 24 and int(horas) <> 0 then
 						call agregarEntradaJornadas(ref(list), dia, horas)
 						cls
-						print "Jornada agreda"
+						print "Jornada agregada"
 					else
 						cls
 						print "***************************************** "
@@ -234,16 +242,17 @@ subroutine imprimirJornadasEnLista(list)
 end subroutine
 
 
-subroutine limpiarYPintarTabla(list,puesto_trabajo$,registrar_empleado$)
+subroutine mostrarTablaJornada(list,puesto_trabajo$,registrar_empleado$)
 	cls
 	print "****************Tabla de jornadas****************************"
 	print "id-----dia-----horas--------------------------"
 	for i=0 to int(length(list)/3) - 2
 		print list [i][0] + "     " + list [i][1] + "     " + list[i][2]
 	next i
-	
-	input "Para volver al menu digite 7 : ",opt$
-	IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,list)
+	do
+		input "Para volver al menu digite 7 : ",opt$
+		IF int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,list)
+	until opt$ = 7
 end subroutine
 
 
@@ -259,8 +268,10 @@ subroutine salarioSemanal(puesto_trabajo$,registrar_empleado$,jornSemanal)
 	else
 	  print "Se deben de registrar las jornadas "
 	end if
-	input "Para volver al menu digite 7 : ",opt$
-	if int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	do
+		input "Para volver al menu digite 7 : ",opt$
+		if int(opt$) = 7 THEN call menu(puesto_trabajo$,registrar_empleado$,jornSemanal)
+	until opt$ = 7
 end subroutine
 
 
